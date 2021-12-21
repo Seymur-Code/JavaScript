@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <select id="nese"></select>
+        <button onclick="vur()">Ok</button>
+        <div id="cedvel"></div>
+
+        <script>
+            const nese = document.getElementById("nese")
+            const cedvel = document.getElementById("cedvel")
+            let text = ""
+
+            for(let i = 1; i <= 9; i++) {
+                text += `<option>${i}</option>`
+            }
+
+            nese.innerHTML = text
+
+            function vur() {
+               let n = nese.value
+                text = ""
+                for(let i = 1; i <= 9; i++) {
+                    text += `<br /> ${i} x ${n} = ${ n * i}`
+                }
+
+                cedvel.innerHTML = text
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            #game {
+                position: relative;
+                box-shadow: 0 0 10px #333;
+                margin: 50px auto;
+            }
+            #game > div { position: absolute }
+            #ball {
+                border-radius: 50%;
+                background: radial-gradient(at 30% 30%, rgb(248, 201, 201), rgb(255, 0, 0), rgba(56, 0, 0, 0.192) );
+            }
+            #bar {
+                background: blue;
+                bottom: 10px
+            }
+        </style>
+    </head>
+    <body>
+        <div id="game"></div>
+
+        <script>
+            let game = {
+                elem: document.getElementById("game"),
+                width: 800,
+                height: 600,
+                create() {
+                    game.elem.style.width = game.width + "px",
+                    game.elem.style.height = game.height + "px"
+                },
+                end() {
+                    clearInterval(start)
+                    alert ("Oyunun sonu")
+                }
+            }
+            let ball = {                
+                width: 30,
+                height: 30,
+                x: 0,
+                y: 0,
+                dx: 5,
+                dy: 5,
+                create() {
+                    game.elem.innerHTML += '<div id="ball"></div>'
+                    ball.show()
+                },
+                move() {
+                    if (ball.x >= game.width - ball.width || ball.x < 0  ) ball.dx *= -1                    
+                    if (ball.y >= game.height - ball.height - bar.height - bar.y && 
+                        ball.x >= bar.x - ball.width && 
+                        ball.x <= bar.x + bar.width - ball.width ||
+                        ball.y < 0 ) ball.dy *= -1 
+                    if (ball.y >= game.height - ball.height ) game.end()
+                    ball.x += ball.dx
+                    ball.y += ball.dy 
+                    ball.show()
+                },
+                show() {
+                    ball.elem = document.getElementById("ball")
+                    ball.elem.style.width = ball.width + "px"
+                    ball.elem.style.height = ball.height + "px"
+                    ball.elem.style.top = ball.y + "px"
+                    ball.elem.style.left = ball.x + "px"
+                }
+            } 
+            let bar = {
+                elem: document.getElementById("bar"),
+                width: 150,
+                height: 10,
+                x: 0,
+                y: 10,
+                dx: 10,
+                create() {
+                    game.elem.innerHTML += '<div id="bar"></div>'
+                    bar.show()
+                },
+                move(e) {
+                    if(e.keyCode == 39 && bar.x < game.width - bar.width) bar.x += bar.dx 
+                    if(e.keyCode == 37 && bar.x > 0) bar.x -= bar.dx
+                    bar.show()
+                },
+                show() {
+                    bar.elem = document.getElementById("bar")
+                    bar.elem.style.width = bar.width + "px"
+                    bar.elem.style.height = bar.height + "px"
+                    bar.elem.style.bottom = bar.y + "px"
+                    bar.elem.style.left = bar.x + "px"
+                }
+            }
+
+            game.create()
+            ball.create()
+            bar.create()
+
+            let start = setInterval(ball.move, 40)
+            document.onkeydown = bar.move 
+        </script>
+    </body>
+</html>
